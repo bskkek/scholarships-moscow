@@ -229,7 +229,7 @@ function cardHTML(s){
 }
 function renderList(){
   const q=($("#q").value||"").toLowerCase();
-  const items=(DATA.items||[]).filter(s=>{
+  const items=((DATA&&DATA.items)||[]).filter(s=>{
     if(filter==="news"&&s.kind!=="news")return false;
     if(filter!=="all"&&filter!=="news"&&s.status!==filter)return false;
     if(q&&!((s.title+" "+(s.org||"")+" "+(s.fields||[]).join(" ")).toLowerCase().includes(q)))return false;
@@ -237,6 +237,7 @@ function renderList(){
   $("#list").innerHTML=items.length?items.map(cardHTML).join(""):'<div class="empty">لا نتائج مطابقة</div>'}
 
 function renderStats(){
+  if(!DATA)return;
   const items=DATA.items||[];
   const sch=items.filter(s=>s.kind!=="news");
   const open=sch.filter(s=>s.status==="open").length;
@@ -373,8 +374,9 @@ $("#q").addEventListener("input",renderList);
 $("#fileInput").addEventListener("change",e=>addFiles(e.target));
 DOCS.forEach((d,i)=>{$("#docChecks").insertAdjacentHTML("beforeend",`<label class="check"><input type="checkbox" value="${i}" style="width:auto">${d}</label>`)});
 async function boot(){
-  await loadDocs();loadProfile();
   try{DATA=await (await fetch(RAW)).json()}catch(e){try{DATA=await (await fetch("data/scholarships.json")).json()}catch(e2){$("#list").innerHTML='<div class="empty">تعذر تحميل البيانات</div>';return}}
+  loadProfile();
+  await loadDocs();
   renderStats();renderList()}
 boot();
 </script>
