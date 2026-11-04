@@ -1,11 +1,13 @@
+const CORS = {"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "Content-Type", "Access-Control-Allow-Methods": "POST, OPTIONS"};
 export async function handler(event) {
-  if (event.httpMethod !== "POST") return { statusCode: 405, body: "POST only" };
+  if (event.httpMethod === "OPTIONS") return { headers: CORS, statusCode: 204, headers: CORS, body: "" };
+  if (event.httpMethod !== "POST") return { headers: CORS, statusCode: 405, body: "POST only" };
   let b;
-  try { b = JSON.parse(event.body || "{}"); } catch { return { statusCode: 400, body: JSON.stringify({ error: "bad_json" }) }; }
+  try { b = JSON.parse(event.body || "{}"); } catch { return { headers: CORS, statusCode: 400, body: JSON.stringify({ error: "bad_json" }) }; }
   const key = process.env.GEMINI_API_KEY;
-  if (!key) return { statusCode: 500, body: JSON.stringify({ error: "no_key", msg: "GEMINI_API_KEY غير مضبوط في إعدادات الموقع" }) };
+  if (!key) return { headers: CORS, statusCode: 500, body: JSON.stringify({ error: "no_key", msg: "GEMINI_API_KEY غير مضبوط في إعدادات الموقع" }) };
   const { type, scholarship, profile, docs } = b;
-  if (!scholarship) return { statusCode: 400, body: JSON.stringify({ error: "missing_scholarship" }) };
+  if (!scholarship) return { headers: CORS, statusCode: 400, body: JSON.stringify({ error: "missing_scholarship" }) };
   const P = JSON.stringify(profile || {}, null, 1);
   const S = JSON.stringify(scholarship, null, 1);
   const D = JSON.stringify(docs || [], null, 1);
@@ -27,9 +29,9 @@ export async function handler(event) {
     });
     const j = await r.json();
     const txt = j?.candidates?.[0]?.content?.parts?.map(p => p.text).join("") || "";
-    if (!txt) return { statusCode: 502, body: JSON.stringify({ error: "empty", raw: JSON.stringify(j).slice(0, 300) }) };
-    return { statusCode: 200, body: JSON.stringify({ text: txt }) };
+    if (!txt) return { headers: CORS, statusCode: 502, body: JSON.stringify({ error: "empty", raw: JSON.stringify(j).slice(0, 300) }) };
+    return { headers: CORS, statusCode: 200, body: JSON.stringify({ text: txt }) };
   } catch (e) {
-    return { statusCode: 502, body: JSON.stringify({ error: "upstream", msg: String(e).slice(0, 200) }) };
+    return { headers: CORS, statusCode: 502, body: JSON.stringify({ error: "upstream", msg: String(e).slice(0, 200) }) };
   }
 }

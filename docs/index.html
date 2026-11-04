@@ -170,7 +170,7 @@ td{padding:10px;border-bottom:1px solid #1c2740;vertical-align:top}
   </div>
 </div>
 
-<script>
+const FN_BASE = location.hostname.endsWith("netlify.app") ? "" : "https://verdant-speculoos-205154.netlify.app";
 const RAW="https://raw.githubusercontent.com/bskkek/scholarships-moscow/main/docs/data/scholarships.json";
 const STATUSES=["لم يبدأ","قيد الإعداد","تم الإرسال","بانتظار النتيجة","مقبول","مرفوض"];
 let DATA=null,PROF={},TRACK={},FILES=[],filter="all";
@@ -285,7 +285,7 @@ async function analyzeDoc(id){
   const d=FILES.find(f=>f.id===id);
   const box=document.getElementById("ex-"+id);box.innerHTML='<div class="muted">جارٍ تحليل المستند بالذكاء الاصطناعي...</div>';
   try{
-    const r=await fetch("/.netlify/functions/analyze",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({filename:d.name,mime:d.mime,base64:d.b64,hint:d.type})});
+    const r=await fetch(FN_BASE+"/.netlify/functions/analyze",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({filename:d.name,mime:d.mime,base64:d.b64,hint:d.type})});
     const j=await r.json();
     if(!r.ok||j.error){box.innerHTML='<div class="miss">فشل التحليل: '+(j.msg||j.error||r.status)+'</div>';return}
     d.extract=j;await idbPut("files",d);renderExtract(id);
@@ -318,7 +318,7 @@ async function genFor(schId,type){
   openModal(type==="motivation"?"الرسالة التحفيزية":"السيرة الذاتية",'<div class="empty">جارٍ التوليد بالذكاء الاصطناعي لمنحة: '+s.title+'...</div>');
   const docs=FILES.filter(f=>f.use).map(f=>({name:f.name,type:f.type,summary:f.extract?.summary||""}));
   try{
-    const r=await fetch("/.netlify/functions/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type,scholarship:s,profile:PROF,docs})});
+    const r=await fetch(FN_BASE+"/.netlify/functions/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type,scholarship:s,profile:PROF,docs})});
     const j=await r.json();
     if(!r.ok||j.error){openModal("خطأ",'<div class="empty">'+(j.msg||j.error||"فشل التوليد")+'</div>');return}
     const key=type+":"+schId;
