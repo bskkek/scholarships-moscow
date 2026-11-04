@@ -75,9 +75,10 @@ td{padding:10px;border-bottom:1px solid #1c2740;vertical-align:top}
 <body>
 <header>
   <div class="logo">&#127891;</div>
-  <div><h1>منصة منح موسكو</h1><div class="sub">بحث ومطابقة وتسجيل وتتبع المنح الدراسية — Aniss Billel • v2h</div></div>
+  <div><h1>منصة منح موسكو</h1><div class="sub">بحث ومطابقة وتسجيل وتتبع المنح الدراسية — Aniss Billel • v2i</div></div>
   <div style="margin-inline-start:auto" class="muted" id="upd"></div>
 </header>
+<div id="migBar" style="margin:10px auto 0;max-width:1100px"></div>
 <div class="wrap">
 <nav>
   <button data-t="home" class="on">الرئيسية</button>
@@ -295,11 +296,55 @@ async function aiPost(path,payload,onErr){
       if(i===0)await new Promise(res=>setTimeout(res,1500));
     }
   }
-  if(!r){onErr('تعذر الاتصال بخدمة الذكاء الاصطناعي ('+lastErr+'). إن تكررت الرسالة فمتصفحك يحجب الاتصال، استخدم النسخة الرئيسية: <a href="'+AI_HOME+'/" target="_blank">verdant-speculoos-205154.netlify.app</a>');return null}
+  if(!r){await aiFail(onErr,lastErr);return null}
   const txt=await r.text();let j=null;try{j=JSON.parse(txt)}catch(_){}
   if(!j){onErr('رد غير متوقع من الخدمة (HTTP '+r.status+'): '+txt.slice(0,140).replace(/[<>&]/g,""));return null}
   if(!r.ok||j.error){onErr('فشل: '+(j.msg||j.error||("HTTP "+r.status)));return null}
   return j}
+
+async function aiDiag(){
+  const out={net:null,web:null};
+  try{await fetch(AI_HOME+"/",{mode:"no-cors",cache:"no-store"});out.net=true}catch(e){out.net=false}
+  try{await fetch("https://api.github.com",{mode:"no-cors",cache:"no-store"});out.web=true}catch(e){out.web=false}
+  return out}
+
+async function aiFail(onErr,lastErr){
+  const d=await aiDiag();
+  const link='<a href="'+AI_HOME+'/" target="_blank" style="font-weight:bold">النسخة الرئيسية verdant-speculoos-205154.netlify.app</a>';
+  let msg='<b>تعذر الاتصال بخدمة الذكاء الاصطناعي ('+lastErr+').</b><br>التشخيص: ';
+  if(d.net===false){
+    msg+='جهازك لا يصل إلى الخدمة إطلاقاً (حجب على مستوى الشبكة أو DNS أو اتصال ضعيف). الحل المضمون: افتح '+link+' فهي نفس لوحتك يعمل فيها التحليل دائماً، ثم انقل بياناتك بزر «تصدير بياناتي كاملة» أعلى الصفحة.'
+  }else if(d.web===false){
+    msg+='لا يوجد إنترنت فعّال في هذا المتصفح أو كل المواقع الخارجية محجوبة.'
+  }else{
+    msg+='اتصالك إلى الخدمة يعمل لكن طلب التحليل نفسه محجوب داخل متصفحك (إضافة حماية أو مانع إعلانات أو وضع خصوصية صارم). الحل: اسمح بالاتصال لهذا الموقع، أو استخدم '+link+' حيث التحليل يعمل دائماً بلا حجب ممكن.'
+  }
+  onErr(msg)}
+
+async function exportAll(){
+  const files=await idbAll("files").catch(()=>[]),gens=await idbAll("gen").catch(()=>[]);
+  let prof=null,track=null;try{prof=JSON.parse(localStorage.getItem(LS.p)||"null")}catch(e){}
+  try{track=JSON.parse(localStorage.getItem(LS.t)||"null")}catch(e){}
+  const pack={v:1,at:new Date().toISOString(),profile:prof,track:track,files:files,gens:gens};
+  const b=new Blob([JSON.stringify(pack)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="منحة-موسكو-نسخة-كاملة.json";a.click()}
+
+async function importAll(inp){
+  const f=inp.files&&inp.files[0];if(!f)return;
+  let pack=null;try{pack=JSON.parse(await f.text())}catch(e){alert("ملف غير صالح");return}
+  if(pack.profile)localStorage.setItem(LS.p,JSON.stringify(pack.profile));
+  if(pack.track)localStorage.setItem(LS.t,JSON.stringify(pack.track));
+  try{for(const x of (pack.files||[]))await idbPut("files",x);for(const g of (pack.gens||[]))await idbPut("gen",g)}catch(e){}
+  location.reload()}
+
+(function mig(){
+  const bar=document.getElementById("migBar");if(!bar)return;
+  const file='<input type="file" id="migFile" accept=".json,application/json" style="display:none" onchange="importAll(this)">';
+  if(location.hostname.endsWith("netlify.app")){
+    bar.innerHTML='<div class="card">نقل بياناتك بين الأجهزة أو المتصفحات: <button class="btn ghost" onclick="document.getElementById(&quot;migFile&quot;).click()">استيراد ملف التصدير</button>'+file+'</div>';
+  }else{
+    bar.innerHTML='<div class="card" style="border:2px solid #c0392b">لثبات الذكاء الاصطناعي 100%: افتح <a href="'+AI_HOME+'/" target="_blank" style="font-weight:bold">النسخة الرئيسية</a> وهي نفس لوحتك، صدّر بياناتك من هنا واستوردها هناك بضغطة. <button class="btn ghost" onclick="exportAll()">تصدير بياناتي كاملة</button> <button class="btn ghost" onclick="document.getElementById(&quot;migFile&quot;).click()">استيراد بياناتي</button>'+file+'</div>';
+  }
+})();
 async function analyzeDoc(id){
   const d=FILES.find(f=>f.id===id);
   const box=document.getElementById("ex-"+id);box.innerHTML='<div class="muted">جارٍ تحليل المستند بالذكاء الاصطناعي...</div>';
