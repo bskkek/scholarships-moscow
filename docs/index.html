@@ -138,6 +138,12 @@ td{padding:10px;border-bottom:1px solid #1c2740;vertical-align:top}
       <div class="field"><label>المعدل التراكمي (GPA)</label><input id="f-gpa"></div>
       <div class="field"><label>اللغات</label><input id="f-lang" placeholder="مثال: عربي، روسي B1، إنجليزي"></div>
       <div class="field"><label>المدينة المستهدفة</label><input id="f-city" value="موسكو"></div>
+      <div class="field"><label>لغة توليد الرسائل (لغة المنحة)</label>
+        <select id="f-genLang"><option value="ru">الروسية — افتراضي للمنح الروسية</option><option value="en">الإنجليزية</option><option value="auto">تلقائي حسب المنحة</option></select></div>
+    </div>
+    <div class="field" style="margin-top:12px"><label>روابط ومنشورات (منشور علمي، بحث، LinkedIn، أعمال...)</label>
+      <div id="linkRows"></div>
+      <button class="btn ghost" style="margin-top:8px" onclick="addLink()">+ إضافة رابط</button>
     </div>
     <div class="field" style="margin-top:12px"><label>المستندات المتوفرة (تُملأ تلقائياً)</label><div class="fgrid" id="docChecks"></div></div>
     <div class="row" style="margin-top:18px">
@@ -189,7 +195,7 @@ async function idbAll(store){const db=await idb();return new Promise((res,rej)=>
 async function idbGet(store,key){const db=await idb();return new Promise((res,rej)=>{const t=db.transaction(store,"readonly");const q=t.objectStore(store).get(key);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
 async function idbDel(store,key){const db=await idb();return new Promise((res,rej)=>{const t=db.transaction(store,"readwrite");t.objectStore(store).delete(key);t.oncomplete=res;t.onerror=()=>rej(t.error)})}
 
-const DOCTYPES=["جواز سفر","شهادة دبلوم/بكالوريوس","كشف درجات مترجم وموثق","شهادة لغة","خطاب توصية","خطاب دافع","سيرة ذاتية","شهادة طبية","أخرى"];
+const DOCTYPES=["جواز سفر","شهادة دبلوم/بكالوريوس","كشف درجات مترجم وموثق","شهادة لغة","خطاب توصية","خطاب دافع","سيرة ذاتية","شهادة طبية","منشور علمي/بحث","أخرى"];
 const DOCS=["جواز سفر ساري","شهادة الدبلوم","كشف الدرجات المترجم وموثق","شهادة لغة (روسية/إنجليزية)","خطابات توصية","خطاب الدافع","سيرة ذاتية","شهادة طبية"];
 function match(s){
   let sc=0;if(!s.levels||!PROF.level)return null;
@@ -268,8 +274,12 @@ function renderReport(){
   $("#reportTable").innerHTML=`<table><thead><tr><th>المنحة</th><th>الحالة</th><th>آخر موعد</th><th>آخر تحديث</th><th>ملاحظات</th></tr></thead><tbody>${rows}</tbody></table>`}
 
 function setStatus(id,v){if(v===""){delete TRACK[id]}else{TRACK[id]={status:+v,updated:new Date().toISOString().slice(0,10),notes:TRACK[id]?.notes||""}}persist();renderStats();renderReport()}
-function saveProfile(){["name","nat","birth","pass","email","phone","level","field","univ","gpa","lang","city"].forEach(k=>PROF[k]=$("#f-"+k).value);PROF.docs=[...$$('#docChecks input:checked')].map(i=>DOCS[i.value]);persist();$("#savedMsg").textContent="تم الحفظ في متصفحك "+new Date().toLocaleTimeString("ar")}
-function loadProfile(){["name","nat","birth","pass","email","phone","level","field","univ","gpa","lang","city"].forEach(k=>{if(PROF[k])$("#f-"+k).value=PROF[k]});DOCS.forEach((d,i)=>{if((PROF.docs||[]).includes(d))$$('#docChecks input')[i].checked=true})}
+function saveProfile(){["name","nat","birth","pass","email","phone","level","field","univ","gpa","lang","city","genLang"].forEach(k=>PROF[k]=$("#f-"+k).value);PROF.docs=[...$$('#docChecks input:checked')].map(i=>DOCS[i.value]);persist();$("#savedMsg").textContent="تم الحفظ في متصفحك "+new Date().toLocaleTimeString("ar")}
+function loadProfile(){["name","nat","birth","pass","email","phone","level","field","univ","gpa","lang","city","genLang"].forEach(k=>{if(PROF[k])$("#f-"+k).value=PROF[k]});if(PROF.genLang)$("#f-genLang").value=PROF.genLang;renderLinks();DOCS.forEach((d,i)=>{if((PROF.docs||[]).includes(d))$$('#docChecks input')[i].checked=true})}
+function renderLinks(){const box=$("#linkRows");if(!box)return;(PROF.links||[]).forEach((l,i)=>{const row=document.createElement("div");row.className="row";row.style.marginTop="6px";row.innerHTML=`<input placeholder="وصف الرابط (مثال: منشور عن محركات DVC)" value="${(l.label||"").replace(/"/g,"&quot;")}" onchange="updLink(${i},\'label\',this.value)"><input placeholder="https://..." value="${(l.url||"").replace(/"/g,"&quot;")}" onchange="updLink(${i},\'url\',this.value)"><button class="btn ghost" onclick="delLink(${i})">حذف</button>`;box.appendChild(row)})}
+function addLink(){if(!PROF.links)PROF.links=[];PROF.links.push({label:"",url:""});persist();$("#linkRows").innerHTML="";renderLinks()}
+function updLink(i,k,v){if(!PROF.links)PROF.links=[];PROF.links[i]=PROF.links[i]||{label:"",url:""};PROF.links[i][k]=v;persist()}
+function delLink(i){(PROF.links||[]).splice(i,1);persist();$("#linkRows").innerHTML="";renderLinks()}
 function exportProfile(){const b=new Blob([JSON.stringify(PROF,null,1)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="منحة-موسكو-بياناتي.json";a.click()}
 function importProfile(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{PROF=JSON.parse(r.result);persist();loadProfile();$("#savedMsg").textContent="تم الاستيراد"}catch(e){alert("ملف غير صالح")}};r.readAsText(f)}
 
@@ -379,7 +389,8 @@ async function genFor(schId,type){
   const s=(DATA.items||[]).find(x=>x.id===schId);if(!s)return;
   openModal(type==="motivation"?"الرسالة التحفيزية":"السيرة الذاتية",'<div class="empty">جارٍ التوليد بالذكاء الاصطناعي لمنحة: '+s.title+'...</div>');
   const docs=FILES.filter(f=>f.use).map(f=>({name:f.name,type:f.type,summary:f.extract?.summary||""}));
-  const j=await aiPost("/.netlify/functions/generate",{type,scholarship:s,profile:PROF,docs},h=>{openModal("خطأ",'<div class="empty">'+h+'</div>')});
+  const lang=(PROF.genLang&&PROF.genLang!=="auto")?PROF.genLang:((s.city||"").includes("روسيا")?"ru":"en");
+  const j=await aiPost("/.netlify/functions/generate",{type,scholarship:s,profile:PROF,docs,lang},h=>{openModal("خطأ",'<div class="empty">'+h+'</div>')});
   if(!j)return;
   const key=type+":"+schId;
   await idbPut("gen",{key,text:j.text,sch:schId,at:new Date().toISOString().slice(0,10)});
