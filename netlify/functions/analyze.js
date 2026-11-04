@@ -11,7 +11,7 @@ export async function handler(event) {
     ` حلله واستخرج ما هو مكتوب فيه فعلاً فقط. أعِد JSON فقط بدون أي نص آخر بالشكل: ` +
     `{"doc_type":"نوع المستند بالعربية","summary":"وصف عربي من سطر إلى سطرين","fields":{"full_name":null,"birth_date":null,"nationality":null,"passport_number":null,"level":null,"institution":null,"field":null,"gpa":null,"graduation_year":null,"languages":null,"extra":{}}}` +
     ` حيث قيمة أي حقل غير موجود في المستند null، وextra كائن لأي معلومات إضافية مفيدة. المستند:`;
-  const model = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
   try {
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, {
       method: "POST", headers: { "Content-Type": "application/json" },

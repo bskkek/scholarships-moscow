@@ -19,7 +19,7 @@ export async function handler(event) {
   }
   const prompt =
     `أنت كاتب ملفات تقديم للمنح الدراسية. بيانات المرشح:\n${P}\n\nالمستندات المتوفرة (ملخصات):\n${D}\n\nالمنحة:\n${S}\n\nالمطلوب: ${task}\nالتنسيق: ${fmt}`;
-  const model = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
   try {
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, {
       method: "POST", headers: { "Content-Type": "application/json" },
