@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>منصة منح موسكو | Aniss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1220; --panel:#131c30; --panel2:#1a2440; --line:#263150;
+  --txt:#e7ecf5; --dim:#93a3c0; --acc:#4f8cff; --acc2:#22c58b; --warn:#f5a623; --bad:#e5484d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+header{display:flex;align-items:center;gap:14px;padding:18px 28px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#101a30,#0b1220);position:sticky;top:0;z-index:10}
+.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#4f8cff,#22c58b);display:flex;align-items:center;justify-content:center;font-size:22px}
+h1{font-size:20px;font-weight:800}
+.sub{color:var(--dim);font-size:12.5px}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 20px 60px}
+nav{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+nav button{background:var(--panel);border:1px solid var(--line);color:var(--dim);padding:10px 18px;border-radius:10px;cursor:pointer;font-family:inherit;font-size:14.5px;font-weight:500;transition:.15s}
+nav button:hover{color:var(--txt);border-color:#3a4c74}
+nav button.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
+.page{display:none}.page.on{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.stat .n{font-size:26px;font-weight:800}
+.stat .l{color:var(--dim);font-size:13px;margin-top:2px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.card h3{font-size:16.5px;font-weight:700;margin-bottom:6px}
+.card h3 a{color:var(--acc);text-decoration:none}
+.card h3 a:hover{text-decoration:underline}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.chip{background:var(--panel2);border:1px solid var(--line);color:var(--dim);font-size:12px;padding:3px 10px;border-radius:20px}
+.chip.open{color:var(--acc2);border-color:#1e4d3a}
+.chip.closed{color:var(--bad);border-color:#4d2023}
+.chip.soon{color:var(--warn);border-color:#4d3a1a}
+.note{color:var(--dim);font-size:13.5px;line-height:1.7;margin:8px 0}
+.match{position:absolute;top:14px;left:14px;font-size:12px;font-weight:800;padding:3px 10px;border-radius:8px;background:#12355c;color:#9cc4ff}
+.card{position:relative}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{background:var(--acc);border:none;color:#fff;padding:8px 16px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;text-decoration:none;display:inline-block}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--dim)}
+.btn.ghost:hover{color:var(--txt);border-color:#3a4c74}
+select,input,textarea{background:var(--panel2);border:1px solid var(--line);color:var(--txt);padding:9px 12px;border-radius:9px;font-family:inherit;font-size:13.5px;width:100%}
+select:focus,input:focus,textarea:focus{outline:none;border-color:var(--acc)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+label{display:block;font-size:12.5px;color:var(--dim);margin:0 0 5px}
+.field{margin-bottom:4px}
+h2{font-size:18px;font-weight:800;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{color:var(--dim);font-weight:700;text-align:right;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12.5px}
+td{padding:10px;border-bottom:1px solid #1c2740;vertical-align:top}
+.tag{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:7px}
+.t0{background:#2a3350;color:#aebadd}.t1{background:#12355c;color:#9cc4ff}.t2{background:#1e4d3a;color:#7fe0b8}.t3{background:#4d3a1a;color:#ffd28a}.t4{background:#1e4d3a;color:#7fe0b8}.t5{background:#4d2023;color:#ff9a9e}
+.muted{color:var(--dim);font-size:12.5px}
+.bar{height:6px;background:var(--panel2);border-radius:4px;overflow:hidden;flex:1;min-width:70px}
+.bar i{display:block;height:100%;background:var(--acc2)}
+.empty{text-align:center;color:var(--dim);padding:36px 0;font-size:14px}
+.src-ok{color:var(--acc2);font-size:12px}.src-fail{color:var(--warn);font-size:12px}
+@media print{body{background:#fff;color:#000}header,nav,.noprint{display:none!important}.card,table{border-color:#ccc}td,th{color:#000}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">&#127891;</div>
+  <div><h1>منصة منح موسكو</h1><div class="sub">بحث ومطابقة وتتبع تسجيل المنح الدراسية — Aniss Billel</div></div>
+  <div style="margin-inline-start:auto" class="muted" id="upd"></div>
+</header>
+<div class="wrap">
+<nav>
+  <button data-t="home" class="on">الرئيسية</button>
+  <button data-t="list">المنح والأخبار</button>
+  <button data-t="profile">قاعدة بياناتي</button>
+  <button data-t="reports">التقارير</button>
+</nav>
+
+<section id="p-home" class="page on">
+  <div class="grid" id="stats"></div>
+  <h2>الأقرب إلى الموعد النهائي</h2>
+  <div id="urgent"></div>
+  <h2 style="margin-top:22px">حالة المصادر</h2>
+  <div class="card" id="sources"></div>
+</section>
+
+<section id="p-list" class="page">
+  <div class="row" style="margin-bottom:16px">
+    <input id="q" placeholder="بحث في المنح..." style="max-width:280px">
+    <button class="btn ghost" data-f="all">الكل</button>
+    <button class="btn ghost" data-f="sch">المنح</button>
+    <button class="btn ghost" data-f="news">الأخبار</button>
+    <button class="btn ghost" data-f="open">تقديم مفتوح</button>
+  </div>
+  <div id="list"></div>
+</section>
+
+<section id="p-profile" class="page">
+  <div class="card">
+    <h2 style="margin-bottom:6px">بياناتي الشخصية والدراسية</h2>
+    <div class="muted" style="margin-bottom:16px">تُحفظ هذه البيانات في متصفحك فقط (localStorage)، لا تُرسل إلى أي خادم.</div>
+    <div class="fgrid">
+      <div class="field"><label>الاسم الكامل (كما في الجواز)</label><input id="f-name"></div>
+      <div class="field"><label>الجنسية</label><input id="f-nat"></div>
+      <div class="field"><label>سنة الميلاد</label><input id="f-birth" type="number"></div>
+      <div class="field"><label>رقم الجواز</label><input id="f-pass"></div>
+      <div class="field"><label>البريد الإلكتروني</label><input id="f-email" type="email"></div>
+      <div class="field"><label>رقم الهاتف</label><input id="f-phone"></div>
+      <div class="field"><label>المستوى الدراسي المطلوب</label>
+        <select id="f-level"><option value="">اختر...</option><option>دراسات تأسيسية</option><option>بكالوريوس</option><option>ماجستير</option><option>دكتوراه</option></select></div>
+      <div class="field"><label>التخصص / المجال</label><input id="f-field" placeholder="مثال: هندسة المحركات"></div>
+      <div class="field"><label>الجامعة / المؤسسة الحالية</label><input id="f-univ"></div>
+      <div class="field"><label>المعدل التراكمي (GPA)</label><input id="f-gpa"></div>
+      <div class="field"><label>اللغات (مثال: عربي، روسي B1، إنجليزي)</label><input id="f-lang"></div>
+      <div class="field"><label>المدينة المستهدفة</label><input id="f-city" value="موسكو"></div>
+    </div>
+    <div class="field" style="margin-top:12px"><label>المستندات المتوفرة</label><div class="fgrid" id="docs"></div></div>
+    <div class="row" style="margin-top:18px">
+      <button class="btn" onclick="saveProfile()">حفظ البيانات</button>
+      <button class="btn ghost" onclick="exportProfile()">تصدير نسخة احتياطية</button>
+      <label class="btn ghost" style="cursor:pointer">استيراد<input type="file" accept=".json" style="display:none" onchange="importProfile(this)"></label>
+    </div>
+    <div id="savedMsg" class="muted" style="margin-top:10px"></div>
+  </div>
+</section>
+
+<section id="p-reports" class="page">
+  <div class="card">
+    <h2 style="margin-bottom:14px">تقرير التسجيل</h2>
+    <div id="reportTable"></div>
+    <div class="row" style="margin-top:16px">
+      <button class="btn" onclick="downloadCSV()">تنزيل CSV</button>
+      <button class="btn ghost" onclick="window.print()">طباعة التقرير</button>
+    </div>
+  </div>
+</section>
+</div>
+<script>
+const DOCS=["جواز سفر ساري","شهادة الدبلوم","كشف الدرجات المترجم وموثق","شهادة لغة (روسية/إنجليزية)","خطابات توصية","خطاب الدافع","سيرة ذاتية","شهادة طبية (086/у)"];
+const STATUSES=["لم يبدأ","قيد الإعداد","تم الإرسال","بانتظار النتيجة","مقبول","مرفوض"];
+let DATA=null, PROF={}, TRACK={}, filter="all";
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const LS={p:"msh_profile",t:"msh_track"};
+try{PROF=JSON.parse(localStorage.getItem(LS.p)||"{}")}catch(e){}
+try{TRACK=JSON.parse(localStorage.getItem(LS.t)||"{}")}catch(e){}
+const persist=()=>{localStorage.setItem(LS.p,JSON.stringify(PROF));localStorage.setItem(LS.t,JSON.stringify(TRACK))};
+
+function match(s){
+  let sc=0;
+  if(!s.levels||!PROF.level) return null;
+  if(s.levels.includes(PROF.level)) sc+=50;
+  if((s.city||"").includes("موسكو")&&(PROF.city||"").includes("موسكو")) sc+=25;
+  const f=(PROF.field||"").trim();
+  if(f&&(s.fields||[]).some(x=>x.includes("جميع")||f.split(/[\s,،]+/).some(w=>x.includes(w)&&w.length>2))) sc+=25;
+  return sc;
+}
+function matchBadge(s){const m=match(s);if(m===null)return"";const c=m>=75?"var(--acc2)":m>=50?"var(--warn)":"var(--dim)";
+  return `<div class="match" style="color:${c}">مطابقة ${m}%</div>`;}
+
+function statusChip(s){
+  const map={open:["open","تقديم مفتوح"],closed:["closed","التسجيل مغلق"],closed_next_season:["soon","الدورة القادمة"],info:["","معلومة"]};
+  const v=map[s.status]||["",""];
+  return `<span class="chip ${v[0]}">${v[1]}</span>`;
+}
+function cardHTML(s){
+  const dl=s.deadline?`<span class="chip soon">آخر موعد: ${s.deadline}</span>`:"";
+  const tr=TRACK[s.id]||{status:0};
+  return `<div class="card">${matchBadge(s)}
+    <h3><a href="${s.url}" target="_blank" rel="noopener">${s.title}</a></h3>
+    <div class="muted">${s.org||""}</div>
+    <div class="meta">${statusChip(s)}${dl}<span class="chip">${s.city||""}</span>${(s.levels||[]).map(l=>`<span class="chip">${l}</span>`).join("")}</div>
+    ${s.funding?`<div class="note" style="color:#7fe0b8">${s.funding}</div>`:""}
+    ${s.note?`<div class="note">${s.note}</div>`:""}
+    <div class="row" style="margin-top:10px">
+      <a class="btn ghost" href="${s.url}" target="_blank" rel="noopener">فتح صفحة التقديم</a>
+      <a class="btn" href="mailto:fo@wajo.ai?subject=${encodeURIComponent("طلب تسجيل تلقائي في: "+s.title)}&body=${encodeURIComponent("المنحة: "+s.title+"\\nالرابط: "+s.url+"\\nمن فضلك سجّل فيها ببياناتي المحدّثة في لوحة منح موسكو.")}">سجّلني تلقائياً (عبر Fo)</a>
+      <select onchange="setStatus('${s.id}',this.value)" style="width:auto">
+        <option value="">الحالة...</option>
+        ${STATUSES.map((st,i)=>`<option value="${i}" ${tr.status==i?"selected":""}>${st}</option>`).join("")}
+      </select>
+    </div></div>`;
+}
+function renderList(){
+  const q=($("#q").value||"").toLowerCase();
+  const items=(DATA.items||[]).filter(s=>{
+    if(filter==="sch"&&s.kind!=="scholarship")return false;
+    if(filter==="news"&&s.kind!=="news")return false;
+    if(filter==="open"&&s.status!=="open")return false;
+    if(q&&!((s.title+" "+(s.org||"")+" "+(s.fields||[]).join(" ")).toLowerCase().includes(q)))return false;
+    return true;
+  }).sort((a,b)=>(match(b)??-1)-(match(a)??-1));
+  $("#list").innerHTML=items.length?items.map(cardHTML).join(""):'<div class="empty">لا نتائج مطابقة</div>';
+}
+function renderStats(){
+  const items=DATA.items||[];
+  const open=items.filter(s=>s.status==="open").length;
+  const tracked=Object.keys(TRACK).length;
+  const act=items.filter(s=>s.deadline).length;
+  $("#stats").innerHTML=`
+    <div class="stat"><div class="n">${items.length}</div><div class="l">إجمالي العناصر المرصودة</div></div>
+    <div class="stat"><div class="n" style="color:var(--acc2)">${open}</div><div class="l">تقديم مفتوح الآن</div></div>
+    <div class="stat"><div class="n" style="color:var(--acc)">${tracked}</div><div class="l">تحت المتابعة</div></div>
+    <div class="stat"><div class="n" style="color:var(--warn)">${act}</div><div class="l">ذات موعد نهائي محدد</div></div>`;
+  $("#upd").textContent="آخر تحديث للمصادر: "+(DATA.updated_at||"").slice(0,10);
+  const urgent=items.filter(s=>s.deadline);
+  $("#urgent").innerHTML=urgent.length?urgent.map(s=>`<div class="card"><h3><a href="${s.url}" target="_blank">${s.title}</a></h3><div class="muted">آخر موعد: ${s.deadline}</div></div>`).join(""):'<div class="empty">لا مواعيد نهائية مؤكدة حاليا؛ تابع صفحة الأخبار يومياً.</div>';
+  const st=DATA.sources_status||{};
+  $("#sources").innerHTML=Object.keys(st).length?Object.entries(st).map(([k,v])=>v.ok?`<div class="src-ok">&#10003; ${k}: آخر فحص ${v.at}</div>`:`<div class="src-fail">! ${k}: ${v.error||"فشل"}</div>`).join(""):'<div class="muted">—</div>';
+}
+function renderReport(){
+  const ids=Object.keys(TRACK);
+  if(!ids.length){$("#reportTable").innerHTML='<div class="empty">لم تتابع أي منحة بعد. من صفحة المنح، اختر حالة لأي منحة لتظهر هنا.</div>';return;}
+  const rows=ids.map(id=>{const s=(DATA.items||[]).find(x=>x.id===id);const t=TRACK[id];
+    return `<tr><td>${s?s.title:id}${s?`<br><span class="muted">${s.url}</span>`:""}</td>
+    <td><span class="tag t${t.status}">${STATUSES[t.status]||"-"}</span></td>
+    <td class="muted">${s&&s.deadline?s.deadline:"غير محدد"}</td>
+    <td class="muted">${t.updated||"-"}</td>
+    <td>${t.notes||""}</td></tr>`}).join("");
+  $("#reportTable").innerHTML=`<table><thead><tr><th>المنحة</th><th>الحالة</th><th>آخر موعد</th><th>آخر تحديث</th><th>ملاحظات</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function setStatus(id,v){
+  if(v===""){delete TRACK[id]}else{TRACK[id]={status:+v,updated:new Date().toISOString().slice(0,10),notes:TRACK[id]?.notes||""}}
+  persist();renderStats();renderReport();
+}
+function saveProfile(){
+  ["name","nat","birth","pass","email","phone","level","field","univ","gpa","lang","city"].forEach(k=>PROF[k]=$("#f-"+k).value);
+  PROF.docs=[...$$('#docs input:checked')].map(i=>DOCS[i.value]);
+  persist();$("#savedMsg").textContent="تم الحفظ في متصفحك "+new Date().toLocaleTimeString("ar");
+}
+function loadProfile(){["name","nat","birth","pass","email","phone","level","field","univ","gpa","lang","city"].forEach(k=>{if(PROF[k])$("#f-"+k).value=PROF[k]});
+  DOCS.forEach((d,i)=>{if((PROF.docs||[]).includes(d))$$('#docs input')[i].checked=true});}
+function exportProfile(){const b=new Blob([JSON.stringify(PROF,null,1)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="منحة-موسكو-بياناتي.json";a.click();}
+function importProfile(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{PROF=JSON.parse(r.result);persist();loadProfile();$("#savedMsg").textContent="تم الاستيراد"}catch(e){alert("ملف غير صالح")}};r.readAsText(f);}
+function downloadCSV(){
+  const ids=Object.keys(TRACK);if(!ids.length)return alert("لا يوجد تتبع بعد");
+  let csv="\uFEFFالمنحة,الحالة,آخر موعد,آخر تحديث,الرابط\n";
+  ids.forEach(id=>{const s=(DATA.items||[]).find(x=>x.id===id);const t=TRACK[id];
+    csv+=[s?s.title:id,STATUSES[t.status]||"",s&&s.deadline?s.deadline:"",t.updated||"",s?s.url:""].map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(",")+"\n";});
+  const b=new Blob([csv],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="تقرير-التسجيل.csv";a.click();
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("on"));$("#p-"+b.dataset.t).classList.add("on");
+  if(b.dataset.t==="reports")renderReport();
+});
+$$("[data-f]").forEach(b=>b.onclick=()=>{filter=b.dataset.f;renderList()});
+$("#q").addEventListener("input",renderList);
+DOCS.forEach((d,i)=>{$("#docs").insertAdjacentHTML("beforeend",`<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" value="${i}" style="width:auto">${d}</label>`)});
+fetch("data/scholarships.json").then(r=>r.json()).then(d=>{DATA=d;renderStats();renderList()}).catch(()=>{$("#list").innerHTML='<div class="empty">تعذر تحميل البيانات</div>'});
+loadProfile();
+</script>
+</body>
+</html>

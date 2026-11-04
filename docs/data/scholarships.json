@@ -1,0 +1,194 @@
+{
+ "updated_at": "2026-11-04T08:57:47.263744+00:00",
+ "sources_status": {
+  "od.globaluni.ru": {
+   "ok": true,
+   "count": 5,
+   "at": "2026-11-04"
+  },
+  "education-in-russia.com": {
+   "ok": true,
+   "count": 0,
+   "at": "2026-11-04"
+  }
+ },
+ "items": [
+  {
+   "id": "od-Registration-for-Open-Doors-2026-27-has-closed-o",
+   "kind": "news",
+   "title": "Open Doors: Registration for Open Doors 2026/27 has closed: over 277,000 participants represent more than 200 countries worldwide",
+   "org": "Open Doors",
+   "url": "https://od.globaluni.ru/",
+   "city": "روسيا",
+   "levels": [
+    "ماجستير",
+    "دكتوراه",
+    "ما بعد الدكتوراه"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "",
+   "deadline": null,
+   "status": "info",
+   "source": "od.globaluni.ru",
+   "found_at": "2026-11-04"
+  },
+  {
+   "id": "od-High-level-international-dialogue-within-the-fra",
+   "kind": "news",
+   "title": "Open Doors: High‑level international dialogue: within the framework of the “Obninsk Tech” project, a lecture was held by former Bolivian ambassador María Luisa Ramos Ursagaste.",
+   "org": "Open Doors",
+   "url": "https://od.globaluni.ru/",
+   "city": "روسيا",
+   "levels": [
+    "ماجستير",
+    "دكتوراه",
+    "ما بعد الدكتوراه"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "",
+   "deadline": null,
+   "status": "info",
+   "source": "od.globaluni.ru",
+   "found_at": "2026-11-04"
+  },
+  {
+   "id": "od--Open-Doors-Opened-the-Next-Chapter-of-My-Life-O",
+   "kind": "news",
+   "title": "Open Doors: \"Open Doors Opened the Next Chapter of My Life\": Olympiad Winners Share Their Experiences at Polytech",
+   "org": "Open Doors",
+   "url": "https://od.globaluni.ru/",
+   "city": "روسيا",
+   "levels": [
+    "ماجستير",
+    "دكتوراه",
+    "ما بعد الدكتوراه"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "",
+   "deadline": null,
+   "status": "info",
+   "source": "od.globaluni.ru",
+   "found_at": "2026-11-04"
+  },
+  {
+   "id": "od-UrFU-Graduate-School-of-Economics-and-Management",
+   "kind": "news",
+   "title": "Open Doors: UrFU Graduate School of Economics and Management Is Among the Best Business Schools Worldwide",
+   "org": "Open Doors",
+   "url": "https://od.globaluni.ru/",
+   "city": "روسيا",
+   "levels": [
+    "ماجستير",
+    "دكتوراه",
+    "ما بعد الدكتوراه"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "",
+   "deadline": null,
+   "status": "info",
+   "source": "od.globaluni.ru",
+   "found_at": "2026-11-04"
+  },
+  {
+   "id": "od-Two-new-universities-have-joined-the-organisers-",
+   "kind": "news",
+   "title": "Open Doors: Two new universities have joined the organisers of Open Doors",
+   "org": "Open Doors",
+   "url": "https://od.globaluni.ru/",
+   "city": "روسيا",
+   "levels": [
+    "ماجستير",
+    "دكتوراه",
+    "ما بعد الدكتوراه"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "",
+   "deadline": null,
+   "status": "info",
+   "source": "od.globaluni.ru",
+   "found_at": "2026-11-04"
+  },
+  {
+   "id": "quota-gov-2027",
+   "kind": "scholarship",
+   "title": "منحة الحكومة الروسية (الكوطة الحكومية) للعام 2027/28",
+   "org": "روسوترودنيكيتشستبو - وزارة التعليم والعلوم الروسية",
+   "url": "https://education-in-russia.com/",
+   "city": "موسكو وجميع مدن روسيا",
+   "levels": [
+    "بكالوريوس",
+    "ماجستير",
+    "دكتوراه",
+    "دراسات تأسيسية"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "منحة كاملة: دراسة مجانية + سكن + راتب شهري",
+   "deadline": null,
+   "status": "open",
+   "note": "التقديم عبر بورتال education-in-russia.com (الحساب إلكتروني). فتحت فترة التقديم في سبتمبر 2026 للعام 2027/28. الموعد النهائي يتغير حسب بلد المرشح، يتطلب تأكيد إرسال الطلب (زر إرسال للمراجعة) وإلا لا تدخل المنافسة.",
+   "source": "education-in-russia.com",
+   "found_at": "2026-11-04"
+  },
+  {
+   "id": "opendoors-olympiad",
+   "kind": "scholarship",
+   "title": "أولمبياد Open Doors الدولي للمنح الدراسية في روسيا",
+   "org": "اتحاد جامعات روسية (Open Doors)",
+   "url": "https://od.globaluni.ru/",
+   "city": "جامعات روسية متعددة، منها جامعات موسكو",
+   "levels": [
+    "ماجستير",
+    "دكتوراه",
+    "ما بعد الدكتوراه"
+   ],
+   "fields": [
+    "هندسة",
+    "فيزياء",
+    "علوم الحاسب والذكاء الاصطناعي",
+    "اقتصاد",
+    "طب",
+    "أخرى"
+   ],
+   "funding": "منحة كاملة في جامعات كبرى، ودخول مباشر للمراحل النهائية",
+   "deadline": null,
+   "status": "closed_next_season",
+   "note": "تسجيل دورة 2026/27 أُغلق بعد مشاركة أكثر من 277 ألف متسابق من 200+ دولة. الدورة القادمة تُفتح عادة في الخريف؛ يتابع البوت إعلان موعدها تلقائياً.",
+   "source": "od.globaluni.ru",
+   "found_at": "2026-11-04"
+  },
+  {
+   "id": "studyinrussia-portal",
+   "kind": "scholarship",
+   "title": "بوابة الدراسة في روسيا (بحث المنح والبرامج الموّلجة)",
+   "org": "Study in Russia",
+   "url": "https://studyinrussia.ru/",
+   "city": "جميع مدن روسيا",
+   "levels": [
+    "بكالوريوس",
+    "ماجستير",
+    "دكتوراه"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "قنوات تقديم متعددة، بعضها بتخفيضات أو منح جامعية جزئية",
+   "deadline": null,
+   "status": "open",
+   "note": "بوابة رسمية للبحث عن برامج ومعادلة مستندات؛ مفيدة كمصدر مستمر للبرامج الجديدة.",
+   "source": "studyinrussia.ru",
+   "found_at": "2026-11-04"
+  }
+ ]
+}
