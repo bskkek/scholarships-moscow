@@ -75,7 +75,7 @@ td{padding:10px;border-bottom:1px solid #1c2740;vertical-align:top}
 <body>
 <header>
   <div class="logo">&#127891;</div>
-  <div><h1>منصة منح موسكو</h1><div class="sub">بحث ومطابقة وتسجيل وتتبع المنح الدراسية — Aniss Billel • v2i</div></div>
+  <div><h1>منصة منح موسكو</h1><div class="sub">بحث ومطابقة وتسجيل وتتبع المنح الدراسية — Aniss Billel • v2k</div></div>
   <div style="margin-inline-start:auto" class="muted" id="upd"></div>
 </header>
 <div id="migBar" style="margin:10px auto 0;max-width:1100px"></div>
@@ -412,26 +412,118 @@ async function saveGen(key){const t=$("#genTxt").value;const g=await idbGet("gen
 function downloadGen(key){const t=$("#genTxt").value;const html='<html dir="rtl"><meta charset="utf-8"><body style="font-family:Arial"><pre style="white-space:pre-wrap;font-size:12pt">'+t.replace(/</g,"&lt;")+'</pre></body></html>';
   const b=new Blob([html],{type:"application/msword"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="منحة-موسكو-"+key.replace(":","-")+".doc";a.click()}
 
-/* ---- Registration panel ---- */
+/* ---- Registration panel (v2k auto-apply engine) ---- */
+function escH(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function genPassword(){const U="ABCDEFGHJKLMNPQRSTUVWXYZ",Lw="abcdefghijkmnpqrstuvwxyz",Dg="23456789",Sy="!@#%&*?";const pick=c=>c[crypto.getRandomValues(new Uint8Array(1))[0]%c.length];const all=U+Lw+Dg+Sy;const out=[pick(U),pick(Lw),pick(Dg),pick(Sy)];for(let i=0;i<10;i++)out.push(pick(all));return out.sort(()=>Math.random()-0.5).join("")}
+const AKS={name:"имя|фамил|full[.]?name|first[.]?name|surname|last[.]?name|^name$|f[.]?i[.]?o|الاسم|اللقب",birth:"рожд|birth|дата|date[.]?of|ميلاد",nat:"гражданств|citizen|nationality|الجنسية",passport:"паспорт|passport|جواز",email:"e-?mail|почт|email|بريد|إيميل",phone:"телеф|phone|mobile|whatsapp|telegram|هاتف|جوال",level:"уровен|степен|level|degree|educat|ступен|مرحلة|درجة",field:"специальн|направлени|программ|program|major|field|course|область|тренировка|تخصص|برنامج",univ:"вуз|универ|universit|institut|university|school|академ|جامعة|معهد",gpa:"gpa|средн|балл|grade|scale|معدل",city:"город|city|адрес|address|место|مدينة",lang:"язык|language|لغة"};
+const AKL={name:"الاسم الكامل",birth:"تاريخ الميلاد",nat:"الجنسية",passport:"رقم الجواز",email:"البريد الإلكتروني",phone:"الهاتف (مع رمز الدولة)",level:"مرحلة الدراسة",field:"التخصص / البرنامج",univ:"الجامعة الحالية",gpa:"المعدل التراكمي",city:"مدينة الإقامة",lang:"اللغات ومستواها"};
+
 async function regPanel(schId){
   const s=(DATA.items||[]).find(x=>x.id===schId);if(!s)return;
+  const stat=s.status||"info";
+  const pkg=await idbGet("gen","apply:"+schId);
+  window.__curPkg=pkg?pkg.pkg:null;
   const used=FILES.filter(f=>f.use);
-  const core=["name","nat","level","field","email","pass","univ","gpa"];
+  const core=["name","birth","nat","pass","email","phone","level","field","univ","gpa"];
   const filled=core.filter(k=>PROF[k]);
   const mot=await idbGet("gen","motivation:"+schId),cv=await idbGet("gen","cv:"+schId);
   const li=(ok,txt)=>`<div><span class="${ok?"ok":"miss"}">${ok?"&#10003;":"&#9679;"}</span> ${txt}</div>`;
-  openModal("التسجيل الآلي — "+s.title,`
-    <div class="chklist">
-      ${li(filled.length>=6,"بيانات قاعدة البيانات: "+filled.length+"/8 أساسية مكتملة")}
-      ${li(used.length>0,"المستندات المفعّلة للتسجيل: "+(used.length?used.map(f=>f.name+" ("+f.type+")").join("، "):"لا يوجد — ارفعها في «مستنداتي»"))}
-      ${li(!!mot,"الرسالة التحفيزية: "+(mot?"جاهزة":"غير مولدة بعد"))}
-      ${li(!!cv,"السيرة الذاتية: "+(cv?"جاهزة":"غير مولدة بعد"))}
-    </div>
-    <div class="note" style="margin-top:14px">اضغط «تنفيذ التسجيل» وسيأخذ Fo المنحة من هنا: يفتح نموذجها الرسمي، يملأ كل حقول من قاعدة بياناتك، يرفق المستندات والرسالة والسيرة، ويرجع بالتأكيد أو بما ينقصك. خطوة واحدة، والتقرير يظهر في تبويب التقارير.</div>
-    <div class="row" style="margin-top:14px">
-      <a class="btn green" href="mailto:fo@wajo.ai?subject=${encodeURIComponent("تنفيذ تسجيل آلي في: "+s.title)}&body=${encodeURIComponent("المنحة: "+s.title+"\\nالرابط: "+s.url+"\\nبياناتي محدّثة في منصة منح موسكو والمستندات والرسالة والسيرة جاهزة. نفّذ التسجيل وأبلغني بالنتيجة.")}">تنفيذ التسجيل عبر Fo</a>
-      <a class="btn ghost" href="${s.url}" target="_blank" rel="noopener">فتح النموذج بنفسي</a>
-    </div>`)}
+  const gate=(stat==="closed"||stat==="upcoming");
+  const gateTxt=stat==="closed"?"منغلق حالياً":"لم يُفتح بعد"+((s.opens_at||s.next_opens)?" (يفتح: "+(s.opens_at||s.next_opens)+")":"");
+  const mail='mailto:fo@wajo.ai?subject='+encodeURIComponent("تنفيذ تقديم آلي في: "+s.title)+'&body='+encodeURIComponent("المنحة: "+s.title+"\nالرابط: "+s.url+"\nحزمة التقديم جاهزة في منصة منح موسكو. نفّذ التقديم في الموقع وأبلغني بالنتيجة، واترك الإرسال النهائي لي.");
+  openModal("التقديم الآلي — "+s.title,`
+   ${gate?`<div class="note" style="border:2px solid #c0392b">تقديم هذه المنحة ${gateTxt}. يمكنك تجهيز الحزمة الآن لتكون جاهزة لحظة الفتح.</div>`:""}
+   <div class="chklist">
+    ${li(filled.length>=8,"بيانات قاعدة بياناتك: "+filled.length+"/10 مكتملة")}
+    ${li(used.length>0,"المستندات المفعّلة للتقديم: "+(used.length?used.length+" ملف":"لا يوجد — ارفعها في «مستنداتي»"))}
+    ${li(!!mot,"الرسالة التحفيزية: "+(mot?"جاهزة":"ولّدها من أزرار المنحة"))}
+    ${li(!!cv,"السيرة الذاتية: "+(cv?"جاهزة":"ولّدها من أزرار المنحة"))}
+    ${li(!!pkg,"حزمة التقديم: "+(pkg?"جاهزة":"لم تُبنَ بعد"))}
+   </div>
+   <div class="note" style="margin-top:12px">كيف يعمل: البوت يبني حزمة كاملة (كل حقول نموذج المنحة معبأة + إجابات أسئلة النموذج بلغة المنحة + كلمة مرور مقترحة)، ثم بإشارة مرجعية واحدة في متصفحك يملأ كل حقول النموذج على موقع المنحة تلقائياً ويضيئها بالأخضر. ما تبقى يدوياً: رفع الملفات ومربع الموافقة. <b>زر الإرسال النهائي بيدك أنت دائماً.</b></div>
+   <div class="row" style="margin-top:12px">
+    ${pkg?`<button class="btn green" onclick="renderApplyReview(window.__curPkg)">مراجعة الحزمة وتعبئة الموقع</button>`:""}
+    <button class="btn" onclick="buildPackage('${s.id}')">${pkg?"إعادة بناء الحزمة":"بناء حزمة التقديم الآن"}</button>
+    <a class="btn ghost" href="${mail}">بدلاً من ذلك: اطلب من Fo تنفيذ التقديم</a>
+   </div>`);
+}
+
+async function buildPackage(schId){
+  const s=(DATA.items||[]).find(x=>x.id===schId);if(!s)return;
+  openModal("تجهيز الحزمة — "+s.title,'<div class="empty">أجمع بياناتك وأولّد إجابات نموذج التقديم بالذكاء الاصطناعي (حتى دقيقة)...</div>');
+  const docs=FILES.filter(f=>f.use).map(f=>({name:f.name,type:f.type,summary:f.extract?.summary||""}));
+  const lang=(PROF.genLang&&PROF.genLang!=="auto")?PROF.genLang:((s.city||"").includes("روسيا")?"ru":"en");
+  const F=[];const add=(k,v)=>{if(v!==undefined&&v!==null&&String(v).trim()!=="")F.push({k:k,label:AKL[k]||k,v:String(v)})};
+  add("name",PROF.name);add("birth",PROF.birth);add("nat",PROF.nat);add("passport",PROF.pass);add("email",PROF.email);add("phone",PROF.phone);add("level",PROF.level);add("field",PROF.field);add("univ",PROF.univ);add("gpa",PROF.gpa);add("city",PROF.city);add("lang",PROF.lang);
+  (PROF.links||[]).forEach((l,i)=>{if(l.url)F.push({k:"link"+i,label:"رابط: "+(l.label||"منشور"),v:l.url})});
+  const mot=await idbGet("gen","motivation:"+schId),cv=await idbGet("gen","cv:"+schId);
+  let extra=[],aiNote="";
+  const j=await aiPost("/.netlify/functions/generate",{type:"application",scholarship:s,profile:PROF,docs:docs,lang:lang},()=>{});
+  if(j&&j.text){try{const m=j.text.match(/\[[\s\S]*\]/);extra=JSON.parse(m?m[0]:j.text);if(!Array.isArray(extra))extra=[]}catch(e){extra=[];aiNote="تعذر تحليل الإجابات الإضافية الآن؛ الحقول الأساسية جاهزة ويمكن إعادة بناء الحزمة لاحقاً."}}
+  else{aiNote="خدمة الذكاء الاصطناعي مشغولة الآن؛ الحقول الأساسية جاهزة وأعد بناء الحزمة لاحقاً للإجابات الإضافية."}
+  const pkg={sch:schId,title:s.title,url:s.url,lang:lang,fields:F,extra:extra,aiNote:aiNote,pass:genPassword(),mot:mot?mot.text:"",cv:cv?cv.text:"",built:new Date().toISOString().slice(0,16).replace("T"," ")};
+  await idbPut("gen",{key:"apply:"+schId,pkg:pkg});
+  if(!TRACK[schId])setStatus(schId,"1");
+  window.__curPkg=pkg;
+  renderApplyReview(pkg);
+}
+
+function renderApplyReview(pkg){
+  if(!pkg)return;
+  const rows=pkg.fields.map((f,i)=>`<tr><td style="white-space:nowrap;font-weight:bold">${escH(f.label)}</td><td><span contenteditable="true" id="fv${i}" style="display:block;min-width:220px">${escH(f.v)}</span></td><td><button class="btn ghost" onclick="copyEl('fv${i}')">نسخ</button></td></tr>`).join("");
+  const extras=(pkg.extra||[]).map((e,i)=>`<div style="margin-top:10px"><b>${escH(e.q)}</b><div style="margin:4px 0"><span contenteditable="true" id="fq${i}" style="display:block;border:1px solid var(--line);border-radius:8px;padding:8px;white-space:pre-wrap">${escH(e.a)}</span></div><button class="btn ghost" onclick="copyEl('fq${i}')">نسخ الإجابة</button></div>`).join("");
+  const bm=applyScript(pkg);
+  openModal("حزمة التقديم — "+pkg.title,`
+   <div class="note"><b>كل شيء معبأ وجاهز.</b> اتبع الخطوات الأربع وسيمتلئ نموذج المنحة تلقائياً، والإرسال الأخير بيدك أنت.</div>
+   <table style="width:100%;margin-top:10px;border-collapse:collapse"><tr><th style="text-align:right">الحقل</th><th style="text-align:right">القيمة (قابلة للتعديل)</th><th></th></tr>${rows}</table>
+   ${extras}
+   ${pkg.aiNote?`<div class="note" style="margin-top:10px">${pkg.aiNote}</div>`:""}
+   <div class="card" style="margin-top:12px"><b>كلمة المرور المقترحة لحساب المنصة:</b> <code id="pwTxt">${escH(pkg.pass)}</code> — احفظها في مكان آمن الآن، ستُملأ تلقائياً في خانات كلمة المرور.</div>
+   <div class="row" style="margin-top:12px">
+     <a id="bmLink" class="btn green" href="#" onclick="return false" title="اسحب هذا الزر إلى شريط المفضلة">اسحبني إلى شريط المفضلة: تعبئة منحة موسكو</a>
+     <button class="btn ghost" onclick="copyScript()">نسخ السكربت (بديل)</button>
+     <a class="btn" href="${pkg.url}" target="_blank" rel="noopener">فتح صفحة التقديم</a>
+   </div>
+   <ol style="margin-top:10px;line-height:2">
+     <li>اسحب الزر الأخضر وأفلته على شريط المفضلة/الإشارات في متصفحك.</li>
+     <li>افتح صفحة التقديم وأنشئ الحساب إن طُلب.</li>
+     <li>وأنت على صفحة النموذج اضغط الإشارة «تعبئة منحة موسكو» فيملأ البوت كل الحقول المطابقة ويضيئها بالأخضر ويعرض لك ما تبقى.</li>
+     <li>ارفع مستنداتك، علّم مربع الموافقة، راجع كل شيء، ثم اضغط إرسال بنفسك.</li>
+   </ol>
+   ${pkg.cv||pkg.mot?`<div class="row" style="margin-top:8px">${pkg.mot?`<button class="btn ghost" onclick="showPkgDoc('mot')">عرض الرسالة</button>`:""}${pkg.cv?`<button class="btn ghost" onclick="showPkgDoc('cv')">عرض السيرة</button>`:""}</div><div id="pkgDoc" style="margin-top:8px"></div>`:""}`);
+  const a=document.getElementById("bmLink");if(a)a.href="javascript:"+encodeURIComponent(bm);
+  window.__bm=bm;
+}
+function copyEl(id){const el=document.getElementById(id);if(!el)return;navigator.clipboard.writeText(el.textContent.trim()).then(()=>{el.style.background="#e8f8ee";setTimeout(()=>el.style.background="",800)})}
+function copyScript(){navigator.clipboard.writeText(window.__bm||"").then(()=>alert("تم نسخ السكربت. وأنت على صفحة النموذج افتح وحدة التحكم (F12 ثم Console) والصقه واضغط Enter"))}
+function showPkgDoc(t){const pkg=window.__curPkg;if(!pkg)return;const box=document.getElementById("pkgDoc");if(!box)return;box.innerHTML=`<textarea style="min-height:300px;width:100%">${escH(t==="mot"?pkg.mot:pkg.cv)}</textarea><button class="btn ghost" onclick="dlPkgDoc('${t}')">تنزيل Word</button>`}
+function dlPkgDoc(t){const pkg=window.__curPkg;if(!pkg)return;const txt=t==="mot"?pkg.mot:pkg.cv;const html='<html dir="rtl"><meta charset="utf-8"><body style="font-family:Arial"><pre style="white-space:pre-wrap;font-size:12pt">'+txt.replace(/</g,"&lt;")+'</pre></body></html>';const b=new Blob([html],{type:"application/msword"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="منحة-موسكو-"+pkg.sch+"-"+t+".doc";a.click()}
+
+function applyScript(pkg){
+  const P=JSON.stringify({f:pkg.fields.map(x=>({k:x.k,v:x.v})),extra:(pkg.extra||[]).map(e=>({q:e.q,a:e.a})),pass:pkg.pass,mot:pkg.mot||""});
+  const K=JSON.stringify(AKS);
+  const body=`var P=${P},K=${K},n=0,left=[];
+    function T(el){return((el.name||"")+" "+(el.id||"")+" "+(el.placeholder||"")+" "+(el.getAttribute("aria-label")||"")).toLowerCase()}
+    function L(el){try{var l=el.closest("label");if(!l&&el.id)l=document.querySelector('label[for="'+el.id+'"]');return l?l.textContent.toLowerCase():""}catch(e){return""}}
+    function fire(el){el.dispatchEvent(new Event("input",{bubbles:true}));el.dispatchEvent(new Event("change",{bubbles:true}))}
+    function setV(el,v){var pr=Object.getOwnPropertyDescriptor(el.tagName==="TEXTAREA"?HTMLTextAreaElement.prototype:HTMLInputElement.prototype,"value");pr.set.call(el,String(v));fire(el);el.dataset.msh=1;el.style.outline="2px solid #2ecc71";n++}
+    var els=document.querySelectorAll("input,textarea,select");
+    for(var i=0;i<els.length;i++){var el=els[i];if(el.dataset.msh)continue;var ty=(el.type||"").toLowerCase();
+      if(ty==="hidden"||ty==="checkbox"||ty==="radio"||ty==="submit"||ty==="button"||ty==="file"||ty==="image"||ty==="date")continue;
+      if(ty==="password"){if(P.pass)setV(el,P.pass);continue}
+      var t=T(el)+" "+L(el);var v=null;
+      var isLink=/publik|ссылк|publication|publicat|link|url|site|doi|research|работ|article|portfolio|رابط/.test(t);
+      for(var kk in K){if(kk.indexOf("link")===0)continue;if(new RegExp(K[kk],"i").test(t)){for(var j=0;j<P.f.length;j++){if(P.f[j].k===kk){v=P.f[j].v;break}}if(v)break}}
+      if(!v&&isLink){for(var j2=0;j2<P.f.length;j2++){if(P.f[j2].k.indexOf("link")===0){v=P.f[j2].v;break}}}
+      if(!v&&el.tagName==="TEXTAREA"){for(var e2=0;e2<P.extra.length;e2++){if(!P.extra[e2].used&&/мотив|motivat|эссе|essay|cover|письмо|about|comment|why|цель|هدف|رسالة|خطة/.test(t)){v=P.extra[e2].a;P.extra[e2].used=1;break}}if(!v&&P.mot)v=P.mot}
+      if(!v){left.push(String(el.name||el.id||"حقل").replace(/['"<>]/g,""));continue}
+      if(el.tagName==="SELECT"){var m=null,ops=el.options;for(var o=0;o<ops.length;o++){if(ops[o].text.toLowerCase().indexOf(String(v).toLowerCase())>-1){m=ops[o];break}}if(m){el.value=m.value;fire(el);el.dataset.msh=1;el.style.outline="2px solid #2ecc71";n++}else left.push(String(el.name||el.id||"قائمة").replace(/['"<>]/g,""))}
+      else setV(el,v)}
+    var p=document.createElement("div");p.style.cssText="position:fixed;bottom:12px;right:12px;z-index:99999;background:#0b2239;color:#fff;padding:14px 16px;border-radius:12px;font:14px/1.8 sans-serif;max-width:330px;direction:rtl;box-shadow:0 6px 24px rgba(0,0,0,.45)";
+    p.innerHTML='تم ملء '+n+' حقل تلقائياً من منصة منح موسكو.<br>راجع الحقول المضيّئة، أكمل يدوياً: رفع المستندات، مربع الموافقة، التحقق من البريد. <b>الإرسال النهائي بيدك أنت.</b>'+(left.length?'<br><b>لم يُطابق تلقائياً ('+left.length+'):</b> '+left.slice(0,8).join("، "):'')+'<br><button onclick="this.parentNode.remove()" style="margin-top:8px;padding:5px 12px;border:0;border-radius:7px;cursor:pointer">إغلاق</button>';
+    document.body.appendChild(p)`;
+  return "javascript:"+encodeURIComponent("(function(){"+body+"})()");
+}
 
 /* ---- boot ---- */
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
