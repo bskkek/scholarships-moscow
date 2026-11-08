@@ -1,15 +1,15 @@
 {
- "updated_at": "2026-11-07T06:02:21.164047+00:00",
+ "updated_at": "2026-11-08T06:05:14.890567+00:00",
  "sources_status": {
   "od.globaluni.ru": {
    "ok": true,
    "count": 5,
-   "at": "2026-11-07"
+   "at": "2026-11-08"
   },
   "education-in-russia.com": {
    "ok": true,
    "count": 0,
-   "at": "2026-11-07"
+   "at": "2026-11-08"
   }
  },
  "items": [
@@ -32,7 +32,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-07"
+   "found_at": "2026-11-08"
   },
   {
    "id": "od-High-level-international-dialogue-within-the-fra",
@@ -53,7 +53,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-07"
+   "found_at": "2026-11-08"
   },
   {
    "id": "od--Open-Doors-Opened-the-Next-Chapter-of-My-Life-O",
@@ -74,7 +74,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-07"
+   "found_at": "2026-11-08"
   },
   {
    "id": "od-UrFU-Graduate-School-of-Economics-and-Management",
@@ -95,7 +95,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-07"
+   "found_at": "2026-11-08"
   },
   {
    "id": "od-Two-new-universities-have-joined-the-organisers-",
@@ -116,7 +116,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-07"
+   "found_at": "2026-11-08"
   },
   {
    "id": "quota-gov-2027",
