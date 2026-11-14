@@ -1,18 +1,39 @@
 {
- "updated_at": "2026-11-13T06:05:43.202400+00:00",
+ "updated_at": "2026-11-14T06:03:54.860705+00:00",
  "sources_status": {
   "od.globaluni.ru": {
    "ok": true,
    "count": 5,
-   "at": "2026-11-13"
+   "at": "2026-11-14"
   },
   "education-in-russia.com": {
    "ok": true,
    "count": 0,
-   "at": "2026-11-13"
+   "at": "2026-11-14"
   }
  },
  "items": [
+  {
+   "id": "od-The-first-stage-of-the-Open-Doors-Olympiad-has-c",
+   "kind": "news",
+   "title": "Open Doors: The first stage of the Open Doors Olympiad has concluded",
+   "org": "Open Doors",
+   "url": "https://od.globaluni.ru/",
+   "city": "روسيا",
+   "levels": [
+    "ماجستير",
+    "دكتوراه",
+    "ما بعد الدكتوراه"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "",
+   "deadline": null,
+   "status": "info",
+   "source": "od.globaluni.ru",
+   "found_at": "2026-11-14"
+  },
   {
    "id": "od-Moscow-Polytech-Presents-Study-Opportunities-at-",
    "kind": "news",
@@ -32,7 +53,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-13"
+   "found_at": "2026-11-14"
   },
   {
    "id": "od-Registration-for-Open-Doors-2026-27-has-closed-o",
@@ -53,7 +74,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-13"
+   "found_at": "2026-11-14"
   },
   {
    "id": "od-High-level-international-dialogue-within-the-fra",
@@ -74,7 +95,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-13"
+   "found_at": "2026-11-14"
   },
   {
    "id": "od--Open-Doors-Opened-the-Next-Chapter-of-My-Life-O",
@@ -95,28 +116,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-13"
-  },
-  {
-   "id": "od-UrFU-Graduate-School-of-Economics-and-Management",
-   "kind": "news",
-   "title": "Open Doors: UrFU Graduate School of Economics and Management Is Among the Best Business Schools Worldwide",
-   "org": "Open Doors",
-   "url": "https://od.globaluni.ru/",
-   "city": "روسيا",
-   "levels": [
-    "ماجستير",
-    "دكتوراه",
-    "ما بعد الدكتوراه"
-   ],
-   "fields": [
-    "جميع التخصصات"
-   ],
-   "funding": "",
-   "deadline": null,
-   "status": "info",
-   "source": "od.globaluni.ru",
-   "found_at": "2026-11-13"
+   "found_at": "2026-11-14"
   },
   {
    "id": "quota-gov-2027",
