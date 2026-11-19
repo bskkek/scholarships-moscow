@@ -1,15 +1,15 @@
 {
- "updated_at": "2026-11-18T06:06:39.415237+00:00",
+ "updated_at": "2026-11-19T06:05:09.663931+00:00",
  "sources_status": {
   "od.globaluni.ru": {
    "ok": true,
    "count": 5,
-   "at": "2026-11-18"
+   "at": "2026-11-19"
   },
   "education-in-russia.com": {
    "ok": true,
    "count": 0,
-   "at": "2026-11-18"
+   "at": "2026-11-19"
   }
  },
  "items": [
@@ -32,7 +32,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-18"
+   "found_at": "2026-11-19"
   },
   {
    "id": "od-Moscow-Polytech-Presents-Study-Opportunities-at-",
@@ -53,7 +53,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-18"
+   "found_at": "2026-11-19"
   },
   {
    "id": "od-Registration-for-Open-Doors-2026-27-has-closed-o",
@@ -74,7 +74,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-18"
+   "found_at": "2026-11-19"
   },
   {
    "id": "od-High-level-international-dialogue-within-the-fra",
@@ -95,7 +95,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-18"
+   "found_at": "2026-11-19"
   },
   {
    "id": "od--Open-Doors-Opened-the-Next-Chapter-of-My-Life-O",
@@ -116,7 +116,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-18"
+   "found_at": "2026-11-19"
   },
   {
    "id": "quota-gov-2027",
