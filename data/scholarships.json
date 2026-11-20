@@ -1,18 +1,102 @@
 {
- "updated_at": "2026-11-19T06:05:09.663931+00:00",
+ "updated_at": "2026-11-20T06:03:34.430861+00:00",
  "sources_status": {
   "od.globaluni.ru": {
    "ok": true,
    "count": 5,
-   "at": "2026-11-19"
+   "at": "2026-11-20"
   },
   "education-in-russia.com": {
    "ok": true,
    "count": 0,
-   "at": "2026-11-19"
+   "at": "2026-11-20"
   }
  },
  "items": [
+  {
+   "id": "od-Plekhanov-University-has-been-included-in-the-to",
+   "kind": "news",
+   "title": "Open Doors: Plekhanov University has been included in the top of the QS Sustainability Rankings 2027",
+   "org": "Open Doors",
+   "url": "https://od.globaluni.ru/",
+   "city": "روسيا",
+   "levels": [
+    "ماجستير",
+    "دكتوراه",
+    "ما بعد الدكتوراه"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "",
+   "deadline": null,
+   "status": "info",
+   "source": "od.globaluni.ru",
+   "found_at": "2026-11-20"
+  },
+  {
+   "id": "od-Formula-for-Success-Opportunities-Growth-and-Peo",
+   "kind": "news",
+   "title": "Open Doors: Formula for Success: Opportunities, Growth and People",
+   "org": "Open Doors",
+   "url": "https://od.globaluni.ru/",
+   "city": "روسيا",
+   "levels": [
+    "ماجستير",
+    "دكتوراه",
+    "ما بعد الدكتوراه"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "",
+   "deadline": null,
+   "status": "info",
+   "source": "od.globaluni.ru",
+   "found_at": "2026-11-20"
+  },
+  {
+   "id": "od-INRTU-and-Tianjin-University-of-Urban-Constructi",
+   "kind": "news",
+   "title": "Open Doors: INRTU and Tianjin University of Urban Construction (China) have signed a cooperation agreement",
+   "org": "Open Doors",
+   "url": "https://od.globaluni.ru/",
+   "city": "روسيا",
+   "levels": [
+    "ماجستير",
+    "دكتوراه",
+    "ما بعد الدكتوراه"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "",
+   "deadline": null,
+   "status": "info",
+   "source": "od.globaluni.ru",
+   "found_at": "2026-11-20"
+  },
+  {
+   "id": "od-HSE-Opens-Middle-East-Office-and-Signs-Agreement",
+   "kind": "news",
+   "title": "Open Doors: HSE Opens Middle East Office and Signs Agreement with UAE’s No. 1 University",
+   "org": "Open Doors",
+   "url": "https://od.globaluni.ru/",
+   "city": "روسيا",
+   "levels": [
+    "ماجستير",
+    "دكتوراه",
+    "ما بعد الدكتوراه"
+   ],
+   "fields": [
+    "جميع التخصصات"
+   ],
+   "funding": "",
+   "deadline": null,
+   "status": "info",
+   "source": "od.globaluni.ru",
+   "found_at": "2026-11-20"
+  },
   {
    "id": "od-The-first-stage-of-the-Open-Doors-Olympiad-has-c",
    "kind": "news",
@@ -32,91 +116,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-19"
-  },
-  {
-   "id": "od-Moscow-Polytech-Presents-Study-Opportunities-at-",
-   "kind": "news",
-   "title": "Open Doors: Moscow Polytech Presents Study Opportunities at an Exhibition in Peru",
-   "org": "Open Doors",
-   "url": "https://od.globaluni.ru/",
-   "city": "روسيا",
-   "levels": [
-    "ماجستير",
-    "دكتوراه",
-    "ما بعد الدكتوراه"
-   ],
-   "fields": [
-    "جميع التخصصات"
-   ],
-   "funding": "",
-   "deadline": null,
-   "status": "info",
-   "source": "od.globaluni.ru",
-   "found_at": "2026-11-19"
-  },
-  {
-   "id": "od-Registration-for-Open-Doors-2026-27-has-closed-o",
-   "kind": "news",
-   "title": "Open Doors: Registration for Open Doors 2026/27 has closed: over 277,000 participants represent more than 200 countries worldwide",
-   "org": "Open Doors",
-   "url": "https://od.globaluni.ru/",
-   "city": "روسيا",
-   "levels": [
-    "ماجستير",
-    "دكتوراه",
-    "ما بعد الدكتوراه"
-   ],
-   "fields": [
-    "جميع التخصصات"
-   ],
-   "funding": "",
-   "deadline": null,
-   "status": "info",
-   "source": "od.globaluni.ru",
-   "found_at": "2026-11-19"
-  },
-  {
-   "id": "od-High-level-international-dialogue-within-the-fra",
-   "kind": "news",
-   "title": "Open Doors: High‑level international dialogue: within the framework of the “Obninsk Tech” project, a lecture was held by former Bolivian ambassador María Luisa Ramos Ursagaste.",
-   "org": "Open Doors",
-   "url": "https://od.globaluni.ru/",
-   "city": "روسيا",
-   "levels": [
-    "ماجستير",
-    "دكتوراه",
-    "ما بعد الدكتوراه"
-   ],
-   "fields": [
-    "جميع التخصصات"
-   ],
-   "funding": "",
-   "deadline": null,
-   "status": "info",
-   "source": "od.globaluni.ru",
-   "found_at": "2026-11-19"
-  },
-  {
-   "id": "od--Open-Doors-Opened-the-Next-Chapter-of-My-Life-O",
-   "kind": "news",
-   "title": "Open Doors: \"Open Doors Opened the Next Chapter of My Life\": Olympiad Winners Share Their Experiences at Polytech",
-   "org": "Open Doors",
-   "url": "https://od.globaluni.ru/",
-   "city": "روسيا",
-   "levels": [
-    "ماجستير",
-    "دكتوراه",
-    "ما بعد الدكتوراه"
-   ],
-   "fields": [
-    "جميع التخصصات"
-   ],
-   "funding": "",
-   "deadline": null,
-   "status": "info",
-   "source": "od.globaluni.ru",
-   "found_at": "2026-11-19"
+   "found_at": "2026-11-20"
   },
   {
    "id": "quota-gov-2027",
