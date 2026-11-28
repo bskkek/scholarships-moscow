@@ -1,15 +1,15 @@
 {
- "updated_at": "2026-11-27T06:04:23.477779+00:00",
+ "updated_at": "2026-11-28T06:05:40.892908+00:00",
  "sources_status": {
   "od.globaluni.ru": {
    "ok": true,
    "count": 5,
-   "at": "2026-11-27"
+   "at": "2026-11-28"
   },
   "education-in-russia.com": {
-   "ok": true,
-   "count": 0,
-   "at": "2026-11-27"
+   "ok": false,
+   "error": "The read operation timed out",
+   "at": "2026-11-28"
   }
  },
  "items": [
@@ -32,7 +32,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-27"
+   "found_at": "2026-11-28"
   },
   {
    "id": "od-Formula-for-Success-Opportunities-Growth-and-Peo",
@@ -53,7 +53,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-27"
+   "found_at": "2026-11-28"
   },
   {
    "id": "od-UrFU-Scientist-Named-Among-Top-2-Most-Cited-Rese",
@@ -74,7 +74,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-27"
+   "found_at": "2026-11-28"
   },
   {
    "id": "od-Plekhanov-University-has-been-included-in-the-to",
@@ -95,7 +95,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-27"
+   "found_at": "2026-11-28"
   },
   {
    "id": "od-HSE-Opens-Middle-East-Office-and-Signs-Agreement",
@@ -116,7 +116,7 @@
    "deadline": null,
    "status": "info",
    "source": "od.globaluni.ru",
-   "found_at": "2026-11-27"
+   "found_at": "2026-11-28"
   },
   {
    "id": "quota-gov-2027",
